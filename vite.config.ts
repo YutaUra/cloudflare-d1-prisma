@@ -11,4 +11,9 @@ export default defineConfig({
       entry: "src/index.tsx",
     }),
   ],
+  resolve: {
+    alias: {
+      ".prisma/client/default": "./node_modules/.prisma/client/default.js",
+    },
+  },
 });

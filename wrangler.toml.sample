@@ -1,5 +1,7 @@
 name = "cloudflare-d1-prisma"
 pages_build_output_dir = "./dist"
+compatibility_date = "2024-03-20"
+compatibility_flags = ["nodejs_compat"]
 
 # [vars]
 # MY_VAR = "my-variable"

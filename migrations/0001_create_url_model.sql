@@ -1,0 +1,7 @@
+-- CreateTable
+CREATE TABLE "Url" (
+    "slug" TEXT NOT NULL PRIMARY KEY,
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "url" TEXT NOT NULL,
+    "clicks" INTEGER NOT NULL DEFAULT 0
+);

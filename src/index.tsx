@@ -1,12 +1,33 @@
-import { Hono } from 'hono'
-import { renderer } from './renderer'
+import { PrismaClient } from "@prisma/client";
+import { PrismaD1 } from "@prisma/adapter-d1";
+import { Hono } from "hono";
+import { renderer } from "./renderer";
 
-const app = new Hono()
+interface Env {
+  Bindings: {
+    DB: D1Database;
+  };
+  Variables: {
+    prisma: PrismaClient;
+  };
+}
 
-app.use(renderer)
+const app = new Hono<Env>();
 
-app.get('/', (c) => {
-  return c.render(<h1>Hello!</h1>)
-})
+app.use(async (c, next) => {
+  const adapter = new PrismaD1(c.env.DB);
+  const prisma = new PrismaClient({ adapter });
+  c.set("prisma", prisma);
 
-export default app
+  console.log(prisma.url.findMany());
+
+  return next();
+});
+
+app.use(renderer);
+
+app.get("/", async (c) => {
+  return c.render(<h1>Hello!</h1>);
+});
+
+export default app;
