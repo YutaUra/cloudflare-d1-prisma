@@ -1,19 +1,38 @@
 import build from "@hono/vite-cloudflare-pages";
 import devServer from "@hono/vite-dev-server";
 import adapter from "@hono/vite-dev-server/cloudflare";
-import { defineConfig } from "vite";
+import { defineConfig, UserConfig } from "vite";
 
-export default defineConfig({
+const config = {
   plugins: [
-    build(),
     devServer({
       adapter,
       entry: "src/index.tsx",
     }),
   ],
-  resolve: {
-    alias: {
-      ".prisma/client/default": "./node_modules/.prisma/client/default.js",
-    },
+  ssr: {
+    target: "webworker",
+    external: ["@prisma/client"],
   },
+} satisfies UserConfig;
+
+export default defineConfig(({ mode }) => {
+  if (mode === "development") {
+    return {
+      ...config,
+      plugins: [...config.plugins],
+      ssr: {
+        ...config.ssr,
+        external: [...config.ssr.external],
+      },
+    };
+  }
+  return {
+    ...config,
+    plugins: [build(), ...config.plugins],
+    ssr: {
+      ...config.ssr,
+      external: [...config.ssr.external],
+    },
+  };
 });

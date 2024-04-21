@@ -19,7 +19,7 @@ app.use(async (c, next) => {
   const prisma = new PrismaClient({ adapter });
   c.set("prisma", prisma);
 
-  console.log(prisma.url.findMany());
+  console.log(await prisma.url.findMany());
 
   return next();
 });
