@@ -93,6 +93,18 @@ app.get("/:slug", async (c) => {
     return c.render(<div>Not found</div>);
   }
 
+  // background task
+  void prisma.url.update({
+    data: {
+      clicks: {
+        increment: 1,
+      },
+    },
+    where: {
+      slug,
+    },
+  });
+
   return c.redirect(url.url);
 });
 
