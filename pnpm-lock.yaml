@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@hono/zod-validator':
+    specifier: 0.2.1
+    version: 0.2.1(hono@4.2.3)(zod@3.22.5)
   '@prisma/adapter-d1':
     specifier: 5.12.1
     version: 5.12.1
@@ -14,6 +17,9 @@ dependencies:
   hono:
     specifier: 4.2.3
     version: 4.2.3
+  zod:
+    specifier: 3.22.5
+    version: 3.22.5
 
 devDependencies:
   '@cloudflare/workers-types':
@@ -564,6 +570,16 @@ packages:
       - utf-8-validate
     dev: true
 
+  /@hono/zod-validator@0.2.1(hono@4.2.3)(zod@3.22.5):
+    resolution: {integrity: sha512-HFoxln7Q6JsE64qz2WBS28SD33UB2alp3aRKmcWnNLDzEL1BLsWfbdX6e1HIiUprHYTIXf5y7ax8eYidKUwyaA==}
+    peerDependencies:
+      hono: '>=3.9.0'
+      zod: ^3.19.1
+    dependencies:
+      hono: 4.2.3
+      zod: 3.22.5
+    dev: false
+
   /@jridgewell/resolve-uri@3.1.2:
     resolution: {integrity: sha512-bRISgCIjP20/tbWSPWMEi54QVPRZExkuD9lJL+UIxUKtwVJA8wW1Trb1jMs1RFXo1CBTNZ/5hpC9QvmKWdopKw==}
     engines: {node: '>=6.0.0'}
@@ -1091,7 +1107,7 @@ packages:
       workerd: 1.20240405.0
       ws: 8.16.0
       youch: 3.3.3
-      zod: 3.22.4
+      zod: 3.22.5
     transitivePeerDependencies:
       - bufferutil
       - supports-color
@@ -1446,6 +1462,5 @@ packages:
       stacktracey: 2.1.8
     dev: true
 
-  /zod@3.22.4:
-    resolution: {integrity: sha512-iC+8Io04lddc+mVqQ9AZ7OQ2MrUKGN+oIQyq1vemgt46jwCwLfhq7/pwnBnNXXXZb8VTVLKwp9EDkx+ryxIWmg==}
-    dev: true
+  /zod@3.22.5:
+    resolution: {integrity: sha512-HqnGsCdVZ2xc0qWPLdO25WnseXThh0kEYKIdV5F/hTHO75hNZFp8thxSeHhiPrHZKrFTo1SOgkAj9po5bexZlw==}

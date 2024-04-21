@@ -10,9 +10,11 @@
   },
   "packageManager": "pnpm@8.15.6",
   "dependencies": {
+    "@hono/zod-validator": "0.2.1",
     "@prisma/adapter-d1": "5.12.1",
     "@prisma/client": "5.12.1",
-    "hono": "4.2.3"
+    "hono": "4.2.3",
+    "zod": "3.22.5"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "4.20240405.0",
