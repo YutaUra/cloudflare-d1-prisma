@@ -3,8 +3,8 @@ pages_build_output_dir = "./dist"
 compatibility_date = "2024-03-20"
 compatibility_flags = ["nodejs_compat"]
 
-# [vars]
-# MY_VAR = "my-variable"
+[vars]
+SHORT_URL_ORIGIN = "<your origin>"
 
 # [[kv_namespaces]]
 # binding = "MY_KV_NAMESPACE"

@@ -4,10 +4,12 @@ import { Hono } from "hono";
 import { renderer } from "./renderer";
 import z from "zod";
 import { zValidator } from "@hono/zod-validator";
+import { nanoid } from "nanoid/non-secure";
 
 interface Env {
   Bindings: {
     DB: D1Database;
+    SHORT_URL_ORIGIN: string;
   };
   Variables: {
     prisma: PrismaClient;
@@ -48,15 +50,24 @@ app.post(
     })
   ),
   async (c) => {
-    const { url } = c.req.valid("form");
+    const form = c.req.valid("form");
+    const id = nanoid(8);
+    const prisma = c.get("prisma");
 
-    console.log({ url });
+    await prisma.url.create({
+      data: {
+        slug: id,
+        url: form.url,
+      },
+    });
+
+    const shortUrl = `${c.env.SHORT_URL_ORIGIN}/${id}`;
 
     return c.render(
       <div>
         <h1>Hello!</h1>
 
-        <p>URL: {url}</p>
+        <p>URL: {shortUrl}</p>
 
         <form method="post">
           <input type="url" name="url" required />
@@ -66,5 +77,23 @@ app.post(
     );
   }
 );
+
+app.get("/:slug", async (c) => {
+  const slug = c.req.param("slug");
+  const prisma = c.get("prisma");
+
+  const url = await prisma.url.findUnique({
+    where: {
+      slug,
+    },
+  });
+
+  if (!url) {
+    c.status(404);
+    return c.render(<div>Not found</div>);
+  }
+
+  return c.redirect(url.url);
+});
 
 export default app;
